@@ -95,11 +95,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   horizontalSpeedRange:
-    min: -0.01
-    max: 0.01
-  verticalSpeedRange:
     min: 0.05
     max: 0.08
+  verticalSpeedRange:
+    min: -0.01
+    max: 0.01
   verticalSpeed: 0
   horizontalSpeed: 0
   boundary:

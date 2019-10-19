@@ -113,7 +113,7 @@ public class PlayerController : MonoBehaviour
                 break;
             case "Island":
                 _yaySound.Play();
-                gameController.Score += 100;
+                gameController.Score += 500;
                 break;
         }
     }
