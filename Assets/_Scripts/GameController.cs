@@ -83,7 +83,7 @@ public class GameController : MonoBehaviour
             }
             scoreLabel.text = "Score: " + _score.ToString();
 
-            if(_score >= 500)
+            if(_score >= 500 && SceneManager.GetActiveScene().name != "Level2")
             {
                 SceneManager.LoadScene("Level2");
             }

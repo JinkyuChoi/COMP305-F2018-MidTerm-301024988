@@ -18,7 +18,6 @@ public class OceanController : MonoBehaviour
     void Update()
     {
         SceneConfiguration();
-        CheckBounds();
     }
 
     void SceneConfiguration()
@@ -26,11 +25,21 @@ public class OceanController : MonoBehaviour
 
         switch (SceneManager.GetActiveScene().name)
         {
+            case "Start":
+                VerticleMove();
+                VerticalCheckBounds();
+                break;
             case "Main":
                 VerticleMove();
+                VerticalCheckBounds();
                 break;
             case "Level2":
                 HorizontalMove();
+                HorizontalCheckBounds();
+                break;
+            case "End":
+                VerticleMove();
+                VerticalCheckBounds();
                 break;
         }
     }
@@ -59,20 +68,33 @@ public class OceanController : MonoBehaviour
     /// <summary>
     /// This method resets the ocean to the resetPosition
     /// </summary>
-    void Reset()
+    void VerticalReset()
     {
         transform.position = new Vector2(0.0f, resetPosition);
+    }
+
+    void HorizontalReset()
+    {
+        transform.position = new Vector2(resetPosition, 0.0f);
     }
 
     /// <summary>
     /// This method checks if the ocean reaches the lower boundary
     /// and then it Resets it
     /// </summary>
-    void CheckBounds()
+    void VerticalCheckBounds()
     {
         if (transform.position.y <= resetPoint)
         {
-            Reset();
+            VerticalReset();
+        }
+    }
+
+    void HorizontalCheckBounds()
+    {
+        if (transform.position.x <= resetPoint)
+        {
+            HorizontalReset();
         }
     }
 }

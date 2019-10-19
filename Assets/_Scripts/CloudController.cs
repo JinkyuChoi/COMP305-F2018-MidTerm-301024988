@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Util;
+using UnityEngine.SceneManagement;
 
 public class CloudController : MonoBehaviour
 {
@@ -18,23 +19,68 @@ public class CloudController : MonoBehaviour
     [SerializeField]
     public Boundary boundary;
 
-    // Start is called before the first frame update
     void Start()
     {
-        Reset();
+        switch (SceneManager.GetActiveScene().name)
+        {
+            case "Start":
+                VerticalReset();
+                break;
+            case "Main":
+                VerticalReset();
+                break;
+            case "Level2":
+                HorizontalReset();
+                break;
+            case "End":
+                VerticalReset();
+                break;
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
-        Move();
-        CheckBounds();
+        SceneConfiguration();
+    }
+
+    void SceneConfiguration()
+    {
+
+        switch (SceneManager.GetActiveScene().name)
+        {
+            case "Start":
+                VerticleMove();
+                VerticalCheckBounds();
+                break;
+            case "Main":
+                VerticleMove();
+                VerticalCheckBounds();
+                break;
+            case "Level2":
+                HorizontalMove();
+                HorizontalCheckBounds();
+                break;
+            case "End":
+                VerticleMove();
+                VerticalCheckBounds();
+                break;
+        }
     }
 
     /// <summary>
     /// This method moves the ocean down the screen by verticalSpeed
     /// </summary>
-    void Move()
+    void VerticleMove()
+    {
+        Vector2 newPosition = new Vector2(horizontalSpeed, verticalSpeed);
+        Vector2 currentPosition = transform.position;
+
+        currentPosition -= newPosition;
+        transform.position = currentPosition;
+    }
+
+    void HorizontalMove()
     {
         Vector2 newPosition = new Vector2(horizontalSpeed, verticalSpeed);
         Vector2 currentPosition = transform.position;
@@ -46,7 +92,7 @@ public class CloudController : MonoBehaviour
     /// <summary>
     /// This method resets the ocean to the resetPosition
     /// </summary>
-    void Reset()
+    void VerticalReset()
     {
         horizontalSpeed = Random.Range(horizontalSpeedRange.min, horizontalSpeedRange.max);
         verticalSpeed = Random.Range(verticalSpeedRange.min, verticalSpeedRange.max);
@@ -55,15 +101,32 @@ public class CloudController : MonoBehaviour
         transform.position = new Vector2(randomXPosition, Random.Range(boundary.Top, boundary.Top + 2.0f));
     }
 
+    void HorizontalReset()
+    {
+        horizontalSpeed = Random.Range(horizontalSpeedRange.min, horizontalSpeedRange.max);
+        verticalSpeed = Random.Range(verticalSpeedRange.min, verticalSpeedRange.max);
+
+        float randomYPosition = Random.Range(boundary.Top, boundary.Bottom);
+        transform.position = new Vector2(Random.Range(boundary.Right, boundary.Right + 2.0f), randomYPosition);
+    }
+
     /// <summary>
     /// This method checks if the ocean reaches the lower boundary
     /// and then it Resets it
     /// </summary>
-    void CheckBounds()
+    void VerticalCheckBounds()
     {
         if (transform.position.y <= boundary.Bottom)
         {
-            Reset();
+            VerticalReset();
+        }
+    }
+
+    void HorizontalCheckBounds()
+    {
+        if (transform.position.x <= boundary.Left)
+        {
+            HorizontalReset();
         }
     }
 }
