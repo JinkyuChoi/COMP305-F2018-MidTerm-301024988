@@ -4,6 +4,7 @@ using UnityEngine;
 using Util;
 using UnityEngine.SceneManagement;
 
+//2019-10-19 by Jinkyu Choi 301024988
 public class PlayerController : MonoBehaviour
 {
     public Speed speed;
@@ -25,7 +26,7 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        //This will check which scene you are in and define whether it would be horizontal or vertical
         switch (SceneManager.GetActiveScene().name)
         {
             case "Main":
@@ -39,6 +40,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    //This will control Vertical Movement
     public void VerticalMove()
     {
         Vector2 newPosition = transform.position;
@@ -72,6 +74,7 @@ public class PlayerController : MonoBehaviour
 
         transform.position = newPosition;
     }
+
 
     public void VerticalCheckBounds()
     {
@@ -113,7 +116,7 @@ public class PlayerController : MonoBehaviour
                 break;
             case "Island":
                 _yaySound.Play();
-                gameController.Score += 500;
+                gameController.Score += 100;
                 break;
         }
     }

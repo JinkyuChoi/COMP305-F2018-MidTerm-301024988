@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+//2019-10-19 by Jinkyu Choi 301024988
 [System.Serializable]
-public class HighScore : MonoBehaviour
+public class Scoreboard : MonoBehaviour
 {
     public int highScore;
     public int score;

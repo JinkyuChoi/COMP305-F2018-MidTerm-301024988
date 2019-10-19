@@ -4,6 +4,7 @@ using UnityEngine;
 using Util;
 using UnityEngine.SceneManagement;
 
+//2019-10-19 by Jinkyu Choi 301024988
 public class CloudController : MonoBehaviour
 {
     [Header("Speed Values")]
@@ -44,17 +45,18 @@ public class CloudController : MonoBehaviour
         SceneConfiguration();
     }
 
+    //This will check which scene you are in and define whether it would be horizontal or vertical
     void SceneConfiguration()
     {
 
         switch (SceneManager.GetActiveScene().name)
         {
             case "Start":
-                VerticleMove();
+                VerticalMove();
                 VerticalCheckBounds();
                 break;
             case "Main":
-                VerticleMove();
+                VerticalMove();
                 VerticalCheckBounds();
                 break;
             case "Level2":
@@ -62,16 +64,16 @@ public class CloudController : MonoBehaviour
                 HorizontalCheckBounds();
                 break;
             case "End":
-                VerticleMove();
+                VerticalMove();
                 VerticalCheckBounds();
                 break;
         }
     }
 
     /// <summary>
-    /// This method moves the ocean down the screen by verticalSpeed
+    /// This method moves the cloud down the screen by verticalSpeed and horizontal speed 
     /// </summary>
-    void VerticleMove()
+    void VerticalMove()
     {
         Vector2 newPosition = new Vector2(horizontalSpeed, verticalSpeed);
         Vector2 currentPosition = transform.position;
@@ -80,6 +82,8 @@ public class CloudController : MonoBehaviour
         transform.position = currentPosition;
     }
 
+    /// <summary>
+    /// This method moves the cloud left the screen by verticalSpeed and horizontal speed
     void HorizontalMove()
     {
         Vector2 newPosition = new Vector2(horizontalSpeed, verticalSpeed);
@@ -90,7 +94,7 @@ public class CloudController : MonoBehaviour
     }
 
     /// <summary>
-    /// This method resets the ocean to the resetPosition
+    /// This method resets the cloud to the resetPosition and that has random x with slightly random y
     /// </summary>
     void VerticalReset()
     {
@@ -101,6 +105,9 @@ public class CloudController : MonoBehaviour
         transform.position = new Vector2(randomXPosition, Random.Range(boundary.Top, boundary.Top + 2.0f));
     }
 
+    /// <summary>
+    /// This method resets the cloud to the resetPosition and that has random y with slightly random x
+    /// </summary>
     void HorizontalReset()
     {
         horizontalSpeed = Random.Range(horizontalSpeedRange.min, horizontalSpeedRange.max);
@@ -111,7 +118,7 @@ public class CloudController : MonoBehaviour
     }
 
     /// <summary>
-    /// This method checks if the ocean reaches the lower boundary
+    /// This method checks if the cloud reaches the lower boundary
     /// and then it Resets it
     /// </summary>
     void VerticalCheckBounds()
@@ -122,6 +129,10 @@ public class CloudController : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// This method checks if the cloud reaches the left boundary
+    /// and then it Resets it
+    /// </summary>
     void HorizontalCheckBounds()
     {
         if (transform.position.x <= boundary.Left)

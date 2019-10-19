@@ -610,6 +610,11 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 676472421425248245, guid: a274316baf0754940a5a2ed441361136,
         type: 3}
+    - target: {fileID: 6258031004218500820, guid: 0cd6714592b08874d95701663d2115fa,
+        type: 3}
+      propertyPath: numberOfClouds
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 6258031004218500823, guid: 0cd6714592b08874d95701663d2115fa,
         type: 3}
       propertyPath: m_LocalPosition.x

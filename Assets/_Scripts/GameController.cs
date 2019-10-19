@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
+//2019-10-19 by Jinkyu Choi 301024988
 public class GameController : MonoBehaviour
 {
     [Header("Scene Game Objects")]
@@ -49,7 +50,7 @@ public class GameController : MonoBehaviour
         set
         {
             _lives = value;
-            scoreBoard.GetComponent<HighScore>().lives = _lives;
+            scoreBoard.GetComponent<Scoreboard>().lives = _lives;
 
             if (_lives < 1)
             {
@@ -74,12 +75,12 @@ public class GameController : MonoBehaviour
         set
         {
             _score = value;
-            scoreBoard.GetComponent<HighScore>().score = _score;
+            scoreBoard.GetComponent<Scoreboard>().score = _score;
 
 
-            if (scoreBoard.GetComponent<HighScore>().highScore < _score)
+            if (scoreBoard.GetComponent<Scoreboard>().highScore < _score)
             {
-                scoreBoard.GetComponent<HighScore>().highScore = _score;
+                scoreBoard.GetComponent<Scoreboard>().highScore = _score;
             }
             scoreLabel.text = "Score: " + _score.ToString();
 
@@ -132,8 +133,8 @@ public class GameController : MonoBehaviour
                 activeSoundClip = SoundClip.ENGINE;
                 break;
             case "Level2":
-                Lives = scoreBoard.GetComponent<HighScore>().lives;
-                Score = scoreBoard.GetComponent<HighScore>().score;
+                Lives = scoreBoard.GetComponent<Scoreboard>().lives;
+                Score = scoreBoard.GetComponent<Scoreboard>().score;
                 highScoreLabel.enabled = false;
                 startLabel.SetActive(false);
                 startButton.SetActive(false);
@@ -147,7 +148,7 @@ public class GameController : MonoBehaviour
                 startLabel.SetActive(false);
                 startButton.SetActive(false);
                 activeSoundClip = SoundClip.NONE;
-                highScoreLabel.text = "High Score: " + scoreBoard.GetComponent<HighScore>().score;
+                highScoreLabel.text = "High Score: " + scoreBoard.GetComponent<Scoreboard>().score;
                 break;
         }
 
