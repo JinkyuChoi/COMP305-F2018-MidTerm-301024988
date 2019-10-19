@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Util;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
@@ -24,11 +25,21 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Move();
-        CheckBounds();
+
+        switch (SceneManager.GetActiveScene().name)
+        {
+            case "Main":
+                VerticalMove();
+                VerticalCheckBounds();
+                break;
+            case "Level2":
+                HorizontalMove();
+                HorizontalCheckBounds();
+                break;
+        }
     }
 
-    public void Move()
+    public void VerticalMove()
     {
         Vector2 newPosition = transform.position;
 
@@ -45,7 +56,24 @@ public class PlayerController : MonoBehaviour
         transform.position = newPosition;
     }
 
-    public void CheckBounds()
+    public void HorizontalMove()
+    {
+        Vector2 newPosition = transform.position;
+
+        if (Input.GetAxis("Vertical") > 0.0f)
+        {
+            newPosition += new Vector2(0.0f, speed.max);
+        }
+
+        if (Input.GetAxis("Vertical") < 0.0f)
+        {
+            newPosition += new Vector2(0.0f, speed.min);
+        }
+
+        transform.position = newPosition;
+    }
+
+    public void VerticalCheckBounds()
     {
         // check right boundary
         if(transform.position.x > boundary.Right)
@@ -57,6 +85,21 @@ public class PlayerController : MonoBehaviour
         if (transform.position.x < boundary.Left)
         {
             transform.position = new Vector2(boundary.Left, transform.position.y);
+        }
+    }
+
+    public void HorizontalCheckBounds()
+    {
+        // check right boundary
+        if (transform.position.y > boundary.Top)
+        {
+            transform.position = new Vector2(transform.position.x, boundary.Top);
+        }
+
+        // check left boundary
+        if (transform.position.y < boundary.Bottom)
+        {
+            transform.position = new Vector2(transform.position.x, boundary.Bottom);
         }
     }
 
